@@ -36,13 +36,13 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
+    return res.redirect("/login");
   } catch (error) {
-    return res.status(400).render("upload", {
-      pageTitle: "Upload Video",
+    return res.status(400).render("join", {
+      pageTitle: "join",
       errorMessage: error._message,
     });
   }
-  return res.redirect("/login");
 };
 
 export const getLogin = (req, res) => {
