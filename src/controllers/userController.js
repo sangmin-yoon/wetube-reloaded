@@ -161,6 +161,37 @@ export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 
-export const postEdit = (req, res) => {};
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { name, username, email, location },
+  } = req;
+  console.log(_id);
+
+  const exixts = await User.exists({
+    $and: [{ _id: { $ne: _id } }, { $or: [{ username }, { email }] }],
+  });
+  console.log(exixts);
+  if (exixts) {
+    return res.status(400).render("edit-profile", {
+      pageTitle: "Edit Profile",
+      message: "this username/email is already taken.",
+    });
+  }
+  //  const exists = await User.exists({ $or: [{ username }, { email }] });
+  // 그냥 위 상태로 email이나 username을 하나만 변경시 값이 true로나와 오류가 나온다
+  // { _id: { $ne: _id } }을 사용하여 현재 세션 id와 다른 필드에서 값을 비교할 수 있게 하면 문제해결
+  // ******필드: { $ne: 값 }  ==> 해당값과 일치하지 않는 값을 가진 필드를 찾습니다.
+
+  const updateUser = await User.findByIdAndUpdate(
+    _id,
+    { name, username, email, location },
+    { new: true }
+  );
+  req.session.user = updateUser;
+  return res.redirect("/users/edit");
+};
 export const remove = (req, res) => res.send("Remove User");
 export const see = (req, res) => res.send("See User");
