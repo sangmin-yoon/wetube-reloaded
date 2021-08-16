@@ -118,7 +118,6 @@ const preventSpaceScroll = (event) => {
 
 const bodyClick = (event) => {
   const clicked_element = event.target.parentElement.id;
-  console.log(clicked_element);
   if (clicked_element == "videoContainer") {
     focused = true;
   } else if (clicked_element == "play") {
@@ -128,7 +127,13 @@ const bodyClick = (event) => {
   } else {
     focused = false;
   }
-  console.log(focused);
+};
+
+const handleEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
 };
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -136,6 +141,7 @@ muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
