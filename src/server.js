@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(flash());
 app.use(localMiddleware);
 app.use("/ffmpeg", express.static("node_modules/@ffmpeg/core/dist"));
 app.use("/uploads", express.static("uploads"));
