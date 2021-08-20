@@ -113,7 +113,6 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userData);
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -124,7 +123,6 @@ export const finishGithubLogin = async (req, res) => {
     const emailObj = emailData.find(
       (email) => email.primary === true && email.verified === true
     );
-    console.log(emailObj);
 
     if (!emailObj) {
       return res.redirect("/login");
@@ -170,12 +168,10 @@ export const postEdit = async (req, res) => {
     body: { name, username, email, location },
     file,
   } = req;
-  console.log(file);
 
   const exixts = await User.exists({
     $and: [{ _id: { $ne: _id } }, { $or: [{ username }, { email }] }],
   });
-  console.log(exixts);
   if (exixts) {
     return res.status(400).render("edit-profile", {
       pageTitle: "Edit Profile",
@@ -240,7 +236,6 @@ export const see = async (req, res) => {
       model: "User",
     },
   });
-  console.log(user);
   if (!user) {
     return res.status(400).render("404", { pageTitle: "User not found." });
   }

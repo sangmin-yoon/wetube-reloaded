@@ -42,7 +42,6 @@ const handleSubmit = async (event) => {
     body: JSON.stringify({ text }),
   });
   textarea.value = "";
-  console.log(response);
   if (response.status === 201) {
     const { newCommentId } = await response.json();
     addComment(text, newCommentId);
@@ -51,7 +50,6 @@ const handleSubmit = async (event) => {
 
 const handleDelete = async (event) => {
   const selectBtn = event.target;
-  console.log(selectBtn);
   const id = selectBtn.parentElement.dataset.id;
   if (selectBtn.innerText === "❌") {
     await fetch(`/api/videos/${id}/delete`, {
