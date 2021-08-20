@@ -18,7 +18,10 @@ header
                         if loggedInUser.avataUrl === undefined
                             span 😃
                         else
-                            img.header__avata(src="/" + loggedInUser.avataUrl)
+                            if loggedInUser.socialOnly
+                                img.header__avata(src=loggedInUser.avataUrl)
+                            else
+                                img.header__avata(src="/" + loggedInUser.avataUrl)
             else
                 li 
                     a(href="/login") Login
