@@ -6,7 +6,7 @@ block content
         if loggedInUser.avataUrl === undefined
             span 😃
         else
-            img(src="/" + user.avataUrl).avatar
+            img(src= user.avataUrl).avatar
         h3=user.name
     div.video-grid
         each video in user.videos
