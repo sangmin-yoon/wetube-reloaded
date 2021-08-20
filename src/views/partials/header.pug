@@ -18,10 +18,11 @@ header
                         if loggedInUser.avataUrl === undefined
                             span 😃
                         else
-                            if loggedInUser.avataUrl.includes("github")
-                                img.header__avata(src=loggedInUser.avataUrl)
-                            else
-                                img.header__avata(src="/" + loggedInUser.avataUrl)
+                            if loggedInUser.avataUrl
+                                if loggedInUser.avataUrl.includes("github")
+                                    img.header__avata(src=loggedInUser.avataUrl)
+                                else
+                                    img.header__avata(src=loggedInUser.avataUrl)
             else
                 li 
                     a(href="/login") Login
