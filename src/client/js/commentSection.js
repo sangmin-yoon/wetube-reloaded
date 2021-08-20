@@ -14,7 +14,7 @@ const addComment = (text, id) => {
   const span = document.createElement("span");
   span.innerText = ` ${text}`;
   const span2 = document.createElement("span");
-  span2.innerText = " ❌";
+  span2.innerText = "❌";
   newComment.appendChild(icon);
   newComment.appendChild(span);
   newComment.appendChild(span2);
@@ -50,10 +50,10 @@ const handleSubmit = async (event) => {
 };
 
 const handleDelete = async (event) => {
-  console.log(event.target.parentElement);
   const selectBtn = event.target;
+  console.log(selectBtn);
   const id = selectBtn.parentElement.dataset.id;
-  if (selectBtn.innerText === " ❌") {
+  if (selectBtn.innerText === "❌") {
     await fetch(`/api/videos/${id}/delete`, {
       method: "DELETE",
     });

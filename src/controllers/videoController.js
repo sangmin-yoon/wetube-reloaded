@@ -143,8 +143,6 @@ export const createComment = async (req, res) => {
   if (!video) {
     return res.sendStatus(404);
   }
-  console.log(video);
-
   const comment = await Comment.create({
     text,
     owner: user._id,
